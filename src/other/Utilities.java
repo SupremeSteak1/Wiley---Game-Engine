@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import engine.frontend.Renderable;
 import engine.frontend.RenderableText;
+import engine.physics.Vector;
 
 public class Utilities {
+	
+	public static final double g = 9.80665;
 	
 	/**
 	 * Allows a string to wrap if it hits the end of a given area
@@ -26,5 +29,14 @@ public class Utilities {
 			}
 		}
 		return toRender;
+	}
+	
+	public static double getAngleBetweenVectors(Vector v1, Vector v2){
+		double cosine = v1.dotProduct(v2)/(v1.getMagnitude()*v2.getMagnitude());
+		return Math.acos(cosine);
+	}
+	
+	public static Vector addVectors(Vector v1, Vector v2){
+		return new Vector(v1.getxComp() + v2.getxComp(), v1.getyComp() + v2.getyComp());
 	}
 }
