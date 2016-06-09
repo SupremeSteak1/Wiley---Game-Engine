@@ -8,7 +8,7 @@ import engine.physics.Vector;
 
 public class Utilities {
 	
-	public static final double g = 9.80665;
+	public static final double g = 9.80665; //Acceleration due to gravity
 	
 	/**
 	 * Allows a string to wrap if it hits the end of a given area

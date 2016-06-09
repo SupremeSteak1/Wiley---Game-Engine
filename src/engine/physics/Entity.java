@@ -4,14 +4,25 @@ import java.util.ArrayList;
 
 import engine.backend.GameObject;
 import engine.frontend.Renderable;
+import engine.frontend.RenderableImage;
 import other.Utilities;
 
 public abstract class Entity implements GameObject{
 
 	private Vector position, velocity;
+	private String filePath; //Image
 	
 	public Entity(int x, int y){
 		this.position = new Vector(x,y);
+		this.filePath = "res/emptyTexture.png";
+	}
+	
+	public String getFilePath(){
+		return filePath;
+	}
+	
+	public void setFilePath(String value){
+		filePath = value;
 	}
 
 	public Vector getVelocity() {
@@ -28,7 +39,10 @@ public abstract class Entity implements GameObject{
 	
 	@Override
 	public ArrayList<Renderable> render(){
-		return null;
+		ArrayList<Renderable> toRender = new ArrayList<>();
+		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(position.getxComp()),(int) Math.round(position.getyComp()), 1);
+		toRender.add(sprite);
+		return toRender;
 	}
 	
 	public void act(){

@@ -26,7 +26,18 @@ public abstract class RigidBody extends Entity{
 	@Override
 	public void act(){
 		acceleration = Utilities.addVectors(acceleration, acceleration.getOppositeVector().normalize().scalarMultiply(frictionCoefficient *(mass * Utilities.g)));
+		//The above line simulates friction by reducing the acceleration's magnitude an amount equal 
+		//to the coefficient of friction multiplied by the mass and the acceleration due to gravity.
 		super.setVelocity(Utilities.addVectors(super.getVelocity(), acceleration));
+		//The above line simulates acceleration by incrementing the velocity vector by the acceleration vector
+	}
+	
+	public Vector getMomentum(){
+		return super.getVelocity().scalarMultiply(getMass());
+	}
+	
+	public double getMass(){
+		return mass;
 	}
 
 }
