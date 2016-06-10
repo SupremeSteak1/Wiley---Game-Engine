@@ -73,4 +73,8 @@ public class Vector {
 		return new Vector(this.xComp / this.getMagnitude(), this.yComp / this.getMagnitude());
 	}
 	
+	public String toString(){
+		return "Vector[x="+getxComp()+",y="+getyComp()+"]";
+	}
+	
 }

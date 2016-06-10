@@ -24,8 +24,8 @@ public class PhysicsController {
 	
 	public void checkForCollisions(){
 		for (int i = 0; i < rbs.size(); i++){  
-		    for (int j = i + 1; j < rbs.size(); j++){  
-		        if (rbs.get(i).getCollisionBox().isColliding(rbs.get(j).getCollisionBox())){
+		    for (int j = 0; j < rbs.size(); j++){  
+		        if (rbs.get(i).getCollisionBox().isColliding(rbs.get(j).getCollisionBox()) &&! rbs.get(j).equals(rbs.get(i))){
 		            rbs.get(i).getCollisionBox().collide(rbs.get(j).getCollisionBox());
 		        }
 		    }

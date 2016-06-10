@@ -29,11 +29,10 @@ public class Keyboard implements KeyListener {
 		if(!events.contains(e)) {
 			events.add(e.getKeyChar());
 		}
-		System.out.println(e.getKeyChar());
 	}
 
 	public void keyReleased(KeyEvent e) {
-		//System.out.println("Removed " + e.toString());
+		System.out.println("Removed " + e.toString());
 		events.remove(new Character(e.getKeyChar()));
 	}
 

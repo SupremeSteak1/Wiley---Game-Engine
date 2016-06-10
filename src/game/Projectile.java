@@ -20,7 +20,7 @@ public class Projectile extends RigidBody {
 	public Projectile(int x, int y) {
 		super(x, y, 1, 1, 1);
 		super.setVelocity(new Vector(0,0));
-		inMotion = true;
+		inMotion = false;
 		filePath = "res/emptyTexture.png";
 	}
 	
@@ -38,6 +38,7 @@ public class Projectile extends RigidBody {
 	 */
 	public void fire(Vector velocity) {
 		super.setVelocity(velocity);
+		inMotion = true;
 	}
 	
 	/**

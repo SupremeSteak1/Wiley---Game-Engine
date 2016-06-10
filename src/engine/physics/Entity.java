@@ -12,8 +12,9 @@ public abstract class Entity implements GameObject{
 	private Vector position, velocity;
 	private String filePath; //Image
 	
-	public Entity(int x, int y){
+	public Entity(int x, int y) {
 		this.position = new Vector(x,y);
+		this.velocity = new Vector(0,0);
 		this.filePath = "res/emptyTexture.png";
 	}
 	
@@ -37,6 +38,10 @@ public abstract class Entity implements GameObject{
 		return position;
 	}
 	
+	public void setPosition(Vector pos){
+		this.position = pos;
+	}
+	
 	@Override
 	public ArrayList<Renderable> render(){
 		ArrayList<Renderable> toRender = new ArrayList<>();
@@ -46,12 +51,13 @@ public abstract class Entity implements GameObject{
 	}
 	
 	public void act(){
-		this.position = Utilities.addVectors(position, velocity);
+		//For class inheritance
 	}
 	
 	@Override
 	public void update(){
 		act();
+		this.position = Utilities.addVectors(position, velocity);
 	}
 	
 }
