@@ -17,6 +17,14 @@ public abstract class RigidBody extends Entity {
 	
 	private String filePath;
 	
+	/**
+	 * Constructs a new RigidBody
+	 * @param x the x coordinate of the RigidBody
+	 * @param y the y coordinate of the RigidBody
+	 * @param m the mass of the RigidBody
+	 * @param xLength the length of the RigidBody on the x-axis
+	 * @param yLength the length of the RigidBody on the y-axis
+	 */
 	public RigidBody(int x, int y, int m, int xLength, int yLength) {
 		super(x, y);
 		this.mass = m;
@@ -26,32 +34,54 @@ public abstract class RigidBody extends Entity {
 		box = new CollisionBox(xLength, yLength, this);
 	}
 	
-	public void setFilePath(String s){
+	/**
+	 * Set the image file path
+	 * @param s the new file path
+	 */
+	public void setFilePath(String s) {
 		filePath = s;
 	}
 	
+	/**
+	 * The inherited render method from Entity
+	 */
 	@Override
-	public ArrayList<Renderable> render(){
+	public ArrayList<Renderable> render() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
 		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(super.getPosition().getxComp()),(int) Math.round(super.getPosition().getyComp()), 1);
 		toRender.add(sprite);
 		return toRender;
 	}
 	
-	public void applyForce(Vector f){
+	/**
+	 * Apply a force to this RigidBody
+	 * @param f the vector of the force
+	 */
+	public void applyForce(Vector f) {
 		acceleration = other.Utilities.addVectors(acceleration, f.scalarMultiply(1 / this.mass));
 	}
 	
-	public void setFrictionCoefficient(double value){
+	/**
+	 * Set the friction coefficient of this RigidBody
+	 * @param value the new friction coefficient
+	 */
+	public void setFrictionCoefficient(double value) {
 		this.frictionCoefficient = value;
 	}
 	
-	public void move(){
+	/**
+	 * This method is used only in subclasses.
+	 * Not for use in raw RigidBody
+	 */
+	public void move() {
 		//For class heirarchy
 	}
 	
+	/**
+	 * The act method inherited from Entity
+	 */
 	@Override
-	public void act(){
+	public void act() {
 		move();
 		//TODO: Fix below line
 		//acceleration = Utilities.addVectors(acceleration, acceleration.getOppositeVector().normalize().scalarMultiply(frictionCoefficient *(mass * Utilities.g)));
@@ -62,15 +92,27 @@ public abstract class RigidBody extends Entity {
 		super.setPosition(Utilities.addVectors(super.getPosition(), super.getVelocity()));
 	}
 	
-	public Vector getMomentum(){
+	/**
+	 * Get the momentum vector of this RigidBody
+	 * @return the momentum vector
+	 */
+	public Vector getMomentum() {
 		return super.getVelocity().scalarMultiply(getMass());
 	}
 	
-	public double getMass(){
+	/**
+	 * Get this RigidBody's mass
+	 * @return this RigidBody's mass
+	 */
+	public double getMass() {
 		return mass;
 	}
 	
-	public CollisionBox getCollisionBox(){
+	/**
+	 * Gets the CollisionBox of this RigidBody
+	 * @return this RigidBody's CollisionBox
+	 */
+	public CollisionBox getCollisionBox() {
 		return this.box;
 	}
 
