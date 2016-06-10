@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Point;
 
+import engine.backend.GameObjectHandler;
 import engine.input.Keyboard;
 import engine.input.Mouse;
 import engine.physics.RigidBody;
@@ -14,6 +15,10 @@ public class ControllableEntity extends RigidBody {
 	private double speed;
 	private double projectileSpeed;
 	
+	private boolean moving;
+	
+	int xLength, yLength;
+	
 	/**
 	 * Constructs a new ControllableEntity
 	 * @param x the x coordinate of the ControllableEntity
@@ -24,9 +29,12 @@ public class ControllableEntity extends RigidBody {
 	 */
 	public ControllableEntity(int x, int y, int m, int xLength, int yLength) {
 		super(x, y, m, xLength, yLength);
+		this.xLength = xLength;
+		this.yLength = yLength;
 		velocity = new Vector(0,0);
 		this.speed = 1;
 		this.projectileSpeed = 1;
+		moving = true;
 	}
 	
 	/**
@@ -68,15 +76,19 @@ public class ControllableEntity extends RigidBody {
 	public void move() {
 		if(Keyboard.isKeyPressed('w')) {
 			velocity = Utilities.addVectors(velocity, new Vector(0,-speed));
+			moving = true;
 		}
 		else if(Keyboard.isKeyPressed('s')) {
 			velocity = Utilities.addVectors(velocity, new Vector(0,speed));
+			moving = true;
 		}
 		else if(Keyboard.isKeyPressed('d')) {
 			velocity = Utilities.addVectors(velocity, new Vector(speed,0));
+			moving = true;
 		}
 		else if(Keyboard.isKeyPressed('a')) {
 			velocity = Utilities.addVectors(velocity, new Vector(-speed,0));
+			moving = true;
 		} else {
 			velocity = new Vector (0,0);
 		}
@@ -86,7 +98,7 @@ public class ControllableEntity extends RigidBody {
 		if(!p.equals(new Point(0,0))){
 			directedAction(p);
 		}
-		if(System.currentTimeMillis()%200==0)System.out.println("Position is: " + super.getPosition().toString());
+		//if(System.currentTimeMillis()%200==0)System.out.println("Position is: " + super.getPosition().toString());
 	}
 	
 	/**
@@ -96,8 +108,10 @@ public class ControllableEntity extends RigidBody {
 	public void directedAction(Point p){
 		Vector direction = Utilities.subtractVectors(new Vector(p.x, p.y), super.getPosition()).normalize();
 		//Default action:
-		Projectile toFire = new Projectile((int) Math.round(this.getPosition().getxComp()), 
-				(int) Math.round(this.getPosition().getyComp()));
+		Projectile toFire = new Projectile((int) Math.round(this.getPosition().getxComp()) + xLength, 
+				(int) Math.round(this.getPosition().getyComp()) + yLength);
+		toFire.setFilePath("res/arrow.png");
+		GameObjectHandler.registerGameObject(toFire);
 		toFire.fire(direction.scalarMultiply(projectileSpeed));
 		
 	}

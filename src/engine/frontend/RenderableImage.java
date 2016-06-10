@@ -1,6 +1,8 @@
 package engine.frontend;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +50,17 @@ public class RenderableImage implements Renderable {
 	
 	public int getLevel() {
 		return level;
+	}
+
+	/**
+	 * This allows objects to be rendered in rotated positions
+	 * @param angle the angle to be rotated
+	 */
+	public void rotate(double angle){
+		AffineTransform transform = new AffineTransform();
+		transform.rotate(angle, image.getWidth()/2, image.getHeight()/2);
+		AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+		image = op.filter(image, null);
 	}
 	
 }

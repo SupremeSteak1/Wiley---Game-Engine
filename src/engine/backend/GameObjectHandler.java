@@ -38,7 +38,7 @@ public class GameObjectHandler {
 				}
 			}
 		} catch(ConcurrentModificationException e) {
-			System.out.println("HA");
+			//System.out.println("HA");
 		}
 	}
 	

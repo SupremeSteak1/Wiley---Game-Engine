@@ -1,16 +1,26 @@
 package game;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
+import engine.backend.GameObjectHandler;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 import engine.physics.RigidBody;
 import engine.physics.Vector;
+import other.Utilities;
 
 public class Projectile extends RigidBody {
 
 	private boolean inMotion;
 	private String filePath;
+	
+	private long timeOut;
+	private long timeWhenFired;
+	
+	private Point placeFired;
+	
+	private double range;
 	
 	/**
 	 * Constructs a new projectile at coordinates (x,y)
@@ -22,6 +32,10 @@ public class Projectile extends RigidBody {
 		super.setVelocity(new Vector(0,0));
 		inMotion = false;
 		filePath = "res/emptyTexture.png";
+		timeOut = 2000;
+		timeWhenFired = Long.MAX_VALUE;
+		placeFired = new Point(0,0);
+		range = 200.0;
 	}
 	
 	/**
@@ -39,6 +53,8 @@ public class Projectile extends RigidBody {
 	public void fire(Vector velocity) {
 		super.setVelocity(velocity);
 		inMotion = true;
+		timeWhenFired = System.currentTimeMillis();
+		placeFired = new Point((int)super.getPosition().getxComp(), (int)super.getPosition().getyComp());
 	}
 	
 	/**
@@ -49,6 +65,10 @@ public class Projectile extends RigidBody {
 		return inMotion;
 	}
 	
+	public void destruct(){
+		GameObjectHandler.unregisterGameObject(this);
+	}
+	
 	/**
 	 * The render method inherited from RigidBody
 	 */
@@ -56,6 +76,7 @@ public class Projectile extends RigidBody {
 	public ArrayList<Renderable> render() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
 		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(super.getPosition().getxComp()),(int) Math.round(super.getPosition().getyComp()), 1);
+		sprite.rotate(Utilities.getAbsoluteVectorRotation(getVelocity()));
 		toRender.add(sprite);
 		return toRender;
 	}
@@ -67,6 +88,10 @@ public class Projectile extends RigidBody {
 	public void act() {
 		if(super.getCollisionBox().getCollisionInProgress()){
 			inMotion = false;
+		}
+		if(System.currentTimeMillis() - timeWhenFired >= timeOut || 
+				placeFired.distance(new Point((int)super.getPosition().getxComp(), (int)super.getPosition().getyComp())) >= range){
+			this.destruct();
 		}
 	}
 
