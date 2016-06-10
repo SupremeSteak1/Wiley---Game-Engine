@@ -6,7 +6,7 @@ import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 import other.Utilities;
 
-public abstract class RigidBody extends Entity{
+public abstract class RigidBody extends Entity {
 
 	private int mass;
 	private Vector acceleration;
