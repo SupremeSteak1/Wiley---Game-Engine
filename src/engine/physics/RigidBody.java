@@ -9,10 +9,14 @@ public abstract class RigidBody extends Entity{
 	
 	private double frictionCoefficient;
 	
-	public RigidBody(int x, int y, int m) {
+	private CollisionBox box;
+	
+	public RigidBody(int x, int y, int m, int xLength, int yLength) {
 		super(x, y);
 		this.mass = m;
 		frictionCoefficient = 0;
+		
+		box = new CollisionBox(xLength, yLength, this);
 	}
 	
 	public void applyForce(Vector f){
@@ -38,6 +42,10 @@ public abstract class RigidBody extends Entity{
 	
 	public double getMass(){
 		return mass;
+	}
+	
+	public CollisionBox getCollisionBox(){
+		return this.box;
 	}
 
 }

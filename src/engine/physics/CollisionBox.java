@@ -29,15 +29,15 @@ public class CollisionBox {
 		return rb;
 	}
 	
-	public void collide(CollisionBox other){
-		Vector p1 = rb.getMomentum();
-		Vector p2 = other.getRB().getMomentum();
-		double angleOfCollision = Utilities.getAngleBetweenVectors(p1, p2);
-		double normalAngle = Math.PI/2 - angleOfCollision;
-		double adjustedXComp = Math.cos(angleOfCollision) * p1.getxComp();
-		double adjustedYComp = Math.sin(angleOfCollision) * p1.getyComp();
-		//Implement polar to rectangular vector conversion. Use it to define new momentum.
-		//http://stackoverflow.com/questions/345838/ball-to-ball-collision-detection-and-handling
+	public void collide(CollisionBox other){ //For the love of God, don't ask.
+											 //This may have been the single most
+											 //difficult line of code I've ever written.
+		Vector fuck = Utilities.subtractVectors(rb.getVelocity(),Utilities.subtractVectors(rb.getPosition(), 
+				other.getRB().getPosition()).scalarMultiply(((2 * other.getRB().getMass()) / (rb.getMass() + other.getRB().getMass())) * 
+				(Utilities.subtractVectors(rb.getVelocity(), other.getRB().getVelocity()).dotProduct
+				(Utilities.subtractVectors(rb.getPosition(), other.getRB().getPosition()))/
+				Math.pow(Utilities.subtractVectors(rb.getPosition(), other.getRB().getPosition()).getMagnitude(),2))));
+		rb.setVelocity(fuck);
 	}
 
 }
