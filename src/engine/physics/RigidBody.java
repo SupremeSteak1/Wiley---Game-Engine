@@ -1,5 +1,9 @@
 package engine.physics;
 
+import java.util.ArrayList;
+
+import engine.frontend.Renderable;
+import engine.frontend.RenderableImage;
 import other.Utilities;
 
 public abstract class RigidBody extends Entity{
@@ -11,12 +15,26 @@ public abstract class RigidBody extends Entity{
 	
 	private CollisionBox box;
 	
+	private String filePath;
+	
 	public RigidBody(int x, int y, int m, int xLength, int yLength) {
 		super(x, y);
 		this.mass = m;
 		frictionCoefficient = 0;
-		
+		filePath = "res/emptyTexture";
 		box = new CollisionBox(xLength, yLength, this);
+	}
+	
+	public void setFilePath(String s){
+		filePath = s;
+	}
+	
+	@Override
+	public ArrayList<Renderable> render(){
+		ArrayList<Renderable> toRender = new ArrayList<>();
+		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(super.getPosition().getxComp()),(int) Math.round(super.getPosition().getyComp()), 1);
+		toRender.add(sprite);
+		return toRender;
 	}
 	
 	public void applyForce(Vector f){
@@ -27,8 +45,13 @@ public abstract class RigidBody extends Entity{
 		this.frictionCoefficient = value;
 	}
 	
+	public void move(){
+		//For class heirarchy
+	}
+	
 	@Override
 	public void act(){
+		move();
 		acceleration = Utilities.addVectors(acceleration, acceleration.getOppositeVector().normalize().scalarMultiply(frictionCoefficient *(mass * Utilities.g)));
 		//The above line simulates friction by reducing the acceleration's magnitude an amount equal 
 		//to the coefficient of friction multiplied by the mass and the acceleration due to gravity.
