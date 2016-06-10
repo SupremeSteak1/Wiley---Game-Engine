@@ -6,6 +6,13 @@ import engine.frontend.Renderable;
 import engine.frontend.RenderableText;
 import engine.physics.Vector;
 
+/**
+ * The Utilities class contains useful functions which tend to be accessed from many
+ * different classes and lend themselves to benefiting from being in a global public
+ * static class.
+ * @author Josh Gordon
+ *
+ */
 public class Utilities {
 	
 	public static final double g = 9.80665; //Acceleration due to gravity
@@ -31,15 +38,33 @@ public class Utilities {
 		return toRender;
 	}
 	
+	/**
+	 * Gets the angle between two vectors
+	 * @param v1 the first vector
+	 * @param v2 the second vector
+	 * @return the angle between v1 and v2
+	 */
 	public static double getAngleBetweenVectors(Vector v1, Vector v2){
 		double cosine = v1.dotProduct(v2)/(v1.getMagnitude()*v2.getMagnitude());
 		return Math.acos(cosine);
 	}
 	
+	/**
+	 * Adds two vectors
+	 * @param v1 the first vector
+	 * @param v2 the second vector
+	 * @return the resultant vector of v1 and v2
+	 */
 	public static Vector addVectors(Vector v1, Vector v2){
 		return new Vector(v1.getxComp() + v2.getxComp(), v1.getyComp() + v2.getyComp());
 	}
 	
+	/**
+	 * Subtracts two vectors
+	 * @param v1 the first vector
+	 * @param v2 the second vector (to be subtracted from v1)
+	 * @return the resultant vector of v1 and v2
+	 */
 	public static Vector subtractVectors(Vector v1, Vector v2){
 		return new Vector(v1.getxComp() - v2.getxComp(), v1.getyComp() - v2.getyComp());
 	}
