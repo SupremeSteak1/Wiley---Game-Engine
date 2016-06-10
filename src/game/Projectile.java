@@ -7,7 +7,7 @@ import engine.frontend.RenderableImage;
 import engine.physics.RigidBody;
 import engine.physics.Vector;
 
-public class Projectile extends RigidBody{
+public class Projectile extends RigidBody {
 
 	private boolean inMotion;
 	private String filePath;
@@ -15,7 +15,7 @@ public class Projectile extends RigidBody{
 	public Projectile(int x, int y) {
 		super(x, y, 1, 1, 1);
 		super.setVelocity(new Vector(0,0));
-		inMotion = true;
+		inMotion = false;
 		filePath = "res/emptyTexture.png";
 	}
 	
@@ -25,6 +25,7 @@ public class Projectile extends RigidBody{
 	
 	public void fire(Vector velocity){
 		super.setVelocity(velocity);
+		inMotion = true;
 	}
 	
 	public boolean getInMotion(){

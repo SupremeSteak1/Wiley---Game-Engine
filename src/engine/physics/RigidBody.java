@@ -20,6 +20,7 @@ public abstract class RigidBody extends Entity{
 	public RigidBody(int x, int y, int m, int xLength, int yLength) {
 		super(x, y);
 		this.mass = m;
+		acceleration = new Vector(0,0);
 		frictionCoefficient = 0;
 		filePath = "res/emptyTexture";
 		box = new CollisionBox(xLength, yLength, this);
@@ -52,11 +53,13 @@ public abstract class RigidBody extends Entity{
 	@Override
 	public void act(){
 		move();
-		acceleration = Utilities.addVectors(acceleration, acceleration.getOppositeVector().normalize().scalarMultiply(frictionCoefficient *(mass * Utilities.g)));
+		//TODO: Fix below line
+		//acceleration = Utilities.addVectors(acceleration, acceleration.getOppositeVector().normalize().scalarMultiply(frictionCoefficient *(mass * Utilities.g)));
 		//The above line simulates friction by reducing the acceleration's magnitude an amount equal 
 		//to the coefficient of friction multiplied by the mass and the acceleration due to gravity.
 		super.setVelocity(Utilities.addVectors(super.getVelocity(), acceleration));
 		//The above line simulates acceleration by incrementing the velocity vector by the acceleration vector
+		super.setPosition(Utilities.addVectors(super.getPosition(), super.getVelocity()));
 	}
 	
 	public Vector getMomentum(){
