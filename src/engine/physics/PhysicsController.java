@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PhysicsController {
 	
-	private ArrayList<RigidBody> rbs;
+	private static ArrayList<RigidBody> rbs;
 	
 	public PhysicsController(){
 		this.rbs = new ArrayList<>();
@@ -14,11 +14,11 @@ public class PhysicsController {
 		return this.rbs;
 	}
 	
-	public void unregisterRigidBody(RigidBody rb){
+	public static void unregisterRigidBody(RigidBody rb){
 		rbs.remove(rb);
 	}
 	
-	public void registerRigidBody(RigidBody rb){
+	public static void registerRigidBody(RigidBody rb){
 		if(!rbs.contains(rb)) rbs.add(rb);
 	}
 	

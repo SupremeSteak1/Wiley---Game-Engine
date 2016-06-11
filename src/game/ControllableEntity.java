@@ -5,6 +5,7 @@ import java.awt.Point;
 import engine.backend.GameObjectHandler;
 import engine.input.Keyboard;
 import engine.input.Mouse;
+import engine.physics.PhysicsController;
 import engine.physics.RigidBody;
 import engine.physics.Vector;
 import other.Utilities;
@@ -16,6 +17,7 @@ public class ControllableEntity extends RigidBody {
 	private double projectileSpeed;
 	
 	private boolean moving;
+	private boolean reload;
 	
 	int xLength, yLength;
 	
@@ -35,6 +37,7 @@ public class ControllableEntity extends RigidBody {
 		this.speed = 1;
 		this.projectileSpeed = 1;
 		moving = true;
+		this.reload = false;
 	}
 	
 	/**
@@ -89,8 +92,6 @@ public class ControllableEntity extends RigidBody {
 		else if(Keyboard.isKeyPressed('a')) {
 			velocity = Utilities.addVectors(velocity, new Vector(-speed,0));
 			moving = true;
-		} else {
-			velocity = new Vector (0,0);
 		}
 		super.setVelocity(velocity);
 		velocity = new Vector (0,0);
@@ -98,7 +99,7 @@ public class ControllableEntity extends RigidBody {
 		if(!p.equals(new Point(0,0))){
 			directedAction(p);
 		}
-		//if(System.currentTimeMillis()%200==0)System.out.println("Position is: " + super.getPosition().toString());
+		if(System.currentTimeMillis()%200==0)reload = false;
 	}
 	
 	/**
@@ -108,12 +109,16 @@ public class ControllableEntity extends RigidBody {
 	public void directedAction(Point p){
 		Vector direction = Utilities.subtractVectors(new Vector(p.x, p.y), super.getPosition()).normalize();
 		//Default action:
-		Projectile toFire = new Projectile((int) Math.round(this.getPosition().getxComp()) + xLength, 
-				(int) Math.round(this.getPosition().getyComp()) + yLength);
+		if(!reload){
+		Vector start = Utilities.addVectors(getPosition(), direction);
+		Projectile toFire = new Projectile((int) Math.round(start.getxComp()) + xLength, 
+				(int) Math.round(start.getyComp()) + yLength);
 		toFire.setFilePath("res/arrow.png");
 		GameObjectHandler.registerGameObject(toFire);
+		PhysicsController.registerRigidBody(toFire);
 		toFire.fire(direction.scalarMultiply(projectileSpeed));
-		
+		reload = true;
+		}
 	}
 
 }

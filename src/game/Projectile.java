@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import engine.backend.GameObjectHandler;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
+import engine.physics.PhysicsController;
 import engine.physics.RigidBody;
 import engine.physics.Vector;
 import other.Utilities;
@@ -35,7 +36,7 @@ public class Projectile extends RigidBody {
 		timeOut = 2000;
 		timeWhenFired = Long.MAX_VALUE;
 		placeFired = new Point(0,0);
-		range = 200.0;
+		range = 2000.0;
 	}
 	
 	/**
@@ -67,6 +68,7 @@ public class Projectile extends RigidBody {
 	
 	public void destruct(){
 		GameObjectHandler.unregisterGameObject(this);
+		PhysicsController.unregisterRigidBody(this);
 	}
 	
 	/**
@@ -91,7 +93,11 @@ public class Projectile extends RigidBody {
 		}
 		if(System.currentTimeMillis() - timeWhenFired >= timeOut || 
 				placeFired.distance(new Point((int)super.getPosition().getxComp(), (int)super.getPosition().getyComp())) >= range){
+			
 			this.destruct();
+		}
+		if(this.getCollisionBox().getRecentCollisionType().equals(this.getClass())){
+			//this.destruct();
 		}
 	}
 

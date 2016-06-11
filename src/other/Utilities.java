@@ -53,16 +53,16 @@ public class Utilities {
 		double x = v.getxComp();
 		double y = v.getyComp();
 		if(x>=0&&y>=0){
-			System.out.println("First quadrant");
+			//System.out.println("First quadrant");
 			return getAngleBetweenVectors(v, new Vector(1,0)) + Math.PI * 1/2; //First quadrant
 		}else if(x <= 0 && y >= 0){
-			System.out.println("Second quadrant");
+			//System.out.println("Second quadrant");
 			return -getAngleBetweenVectors(v, new Vector(0,-1)); //Second quadrant
 		}else if(x <= 0 && y <= 0){
-			System.out.println("Third quadrant");
+			//System.out.println("Third quadrant");
 			return getAngleBetweenVectors(v, new Vector(-1,0)) + Math.PI * 3/2; //Third quadrant
 		}else if(x >= 0 && y <= 0){
-			System.out.println("Fourth quadrant");
+			//System.out.println("Fourth quadrant");
 			return Math.PI-getAngleBetweenVectors(v, new Vector(0,1)); //Fourth quadrant
 		}
 		else return 0.0;
