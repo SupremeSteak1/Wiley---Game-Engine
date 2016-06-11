@@ -2,6 +2,7 @@ package engine.physics;
 
 import java.awt.Rectangle;
 
+import game.Mob;
 import other.Utilities;
 
 public class CollisionBox {

@@ -1,0 +1,2 @@
+1;Thomas;1;1;50;10;10;50;10;15;res/mobs/Thomas.png
+2;Josh;1;1;50;10;10;50;10;15;res/mobs/Josh.png
