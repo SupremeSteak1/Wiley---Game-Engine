@@ -75,7 +75,7 @@ public class Projectile extends RigidBody {
 	@Override
 	public ArrayList<Renderable> render() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
-		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(super.getPosition().getxComp()),(int) Math.round(super.getPosition().getyComp()), 1);
+		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(super.getPosition().getxComp()),(int) Math.round(super.getPosition().getyComp()));
 		sprite.rotate(Utilities.getAbsoluteVectorRotation(getVelocity()));
 		toRender.add(sprite);
 		return toRender;

@@ -11,7 +11,7 @@ public class Main {
 
 	@SuppressWarnings("static-access")
 	public static void main(String[] args){
-		Renderer r = new Renderer(1, 1280, 720);
+		Renderer r = new Renderer(1280, 720);
 		GameObjectHandler goh = new GameObjectHandler();
 		ControllableEntity player = new ControllableEntity(1,1,20,10,10);
 		player.setFilePath("res/testPlayer.png");

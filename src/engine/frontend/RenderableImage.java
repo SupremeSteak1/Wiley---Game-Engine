@@ -19,7 +19,6 @@ public class RenderableImage implements Renderable {
 	private BufferedImage image;
 	private int x;
 	private int y;
-	private int level;
 	
 	/**
 	 * A RenderableImage is an image that can be rendered using our custom render engine.
@@ -27,10 +26,9 @@ public class RenderableImage implements Renderable {
 	 * @param x the starting x coordinate
 	 * @param y the starting y coordinate
 	 */
-	public RenderableImage(String filePath, int x, int y, int level){
+	public RenderableImage(String filePath, int x, int y){
 		this.x = x;
 		this.y = y;
-		this.level = level;
 		try {
 			image = ImageIO.read(new File(filePath));
 		} catch (IOException e) {
@@ -46,10 +44,6 @@ public class RenderableImage implements Renderable {
 		rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHints(rh);
 		g2d.drawImage(image, x, y, null);
-	}
-	
-	public int getLevel() {
-		return level;
 	}
 
 	/**

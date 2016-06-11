@@ -18,10 +18,8 @@ public class Renderer extends JFrame {
 	
 	private Display display;
 	private ArrayList<Renderable> queue;
-	private int level;
 	
-	public Renderer(int level, int windowWidth, int windowHeight) {
-		this.level = level;
+	public Renderer(int windowWidth, int windowHeight) {
 		addKeyListener(new Keyboard());
 		addMouseListener(new Mouse());
 		display = new Display();
@@ -47,7 +45,6 @@ public class Renderer extends JFrame {
 	 */
 	public void addToQueue(ArrayList<Renderable> a) {
 		for(Renderable r : a) {
-			if(r.getLevel()==level)
 				queue.add(r);
 		}
 	}

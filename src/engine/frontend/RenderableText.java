@@ -23,9 +23,4 @@ public class RenderableText implements Renderable {
 		g2d.drawString(text, x, y);
 	}
 
-	@Override
-	public int getLevel() {
-		return 1;
-	}
-
 }

@@ -45,7 +45,7 @@ public abstract class Entity implements GameObject{
 	@Override
 	public ArrayList<Renderable> render(){
 		ArrayList<Renderable> toRender = new ArrayList<>();
-		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(position.getxComp()),(int) Math.round(position.getyComp()), 1);
+		RenderableImage sprite = new RenderableImage(filePath,(int) Math.round(position.getxComp()),(int) Math.round(position.getyComp()));
 		toRender.add(sprite);
 		return toRender;
 	}
