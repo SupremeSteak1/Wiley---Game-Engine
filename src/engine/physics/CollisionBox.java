@@ -1,8 +1,11 @@
 package engine.physics;
 
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 
+import game.Level;
 import game.Mob;
+import other.Main;
 import other.Utilities;
 
 public class CollisionBox {
@@ -30,6 +33,10 @@ public class CollisionBox {
 	}
 	
 	public boolean isColliding(CollisionBox other){
+		for(Line2D.Double l : Level.getBounds()){
+			System.out.println("On bounds!");
+			if(box.intersectsLine(l)) return true;
+		}
 		collisionInProgress = this.box.intersects(other.getCollisionBox());
 		return collisionInProgress;
 	}

@@ -37,7 +37,7 @@ public class Mouse implements MouseListener{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Click at " + e.getPoint().toString());
+		//System.out.println("Click at " + e.getPoint().toString());
 	}
 
 	public void mouseEntered(MouseEvent e) {

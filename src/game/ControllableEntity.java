@@ -17,7 +17,8 @@ public class ControllableEntity extends RigidBody {
 	private double projectileSpeed;
 	
 	private boolean moving;
-	private boolean reload;
+	
+	private long lastTimeFired;
 	
 	int xLength, yLength;
 	
@@ -37,7 +38,6 @@ public class ControllableEntity extends RigidBody {
 		this.speed = 1;
 		this.projectileSpeed = 1;
 		moving = true;
-		this.reload = false;
 	}
 	
 	/**
@@ -99,7 +99,6 @@ public class ControllableEntity extends RigidBody {
 		if(!p.equals(new Point(0,0))){
 			directedAction(p);
 		}
-		if(System.currentTimeMillis()%200==0)reload = false;
 	}
 	
 	/**
@@ -109,7 +108,7 @@ public class ControllableEntity extends RigidBody {
 	public void directedAction(Point p){
 		Vector direction = Utilities.subtractVectors(new Vector(p.x, p.y), super.getPosition()).normalize();
 		//Default action:
-		if(!reload){
+		if(System.currentTimeMillis() - lastTimeFired >= 200){
 		Vector start = Utilities.addVectors(getPosition(), direction);
 		Projectile toFire = new Projectile((int) Math.round(start.getxComp()) + xLength, 
 				(int) Math.round(start.getyComp()) + yLength);
@@ -117,7 +116,7 @@ public class ControllableEntity extends RigidBody {
 		GameObjectHandler.registerGameObject(toFire);
 		PhysicsController.registerRigidBody(toFire);
 		toFire.fire(direction.scalarMultiply(projectileSpeed));
-		reload = true;
+		lastTimeFired = System.currentTimeMillis();
 		}
 	}
 
