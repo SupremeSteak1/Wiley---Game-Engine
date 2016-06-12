@@ -90,6 +90,7 @@ public abstract class RigidBody extends Entity {
 		super.setVelocity(Utilities.addVectors(super.getVelocity(), acceleration));
 		//The above line simulates acceleration by incrementing the velocity vector by the acceleration vector
 		super.setPosition(Utilities.addVectors(super.getPosition(), super.getVelocity()));
+		box.isOnBoundary();
 	}
 	
 	/**

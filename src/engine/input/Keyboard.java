@@ -43,4 +43,14 @@ public class Keyboard implements KeyListener {
 		
 	}
 	
+	public static void update(){
+		if(events.size() > 5){
+			ArrayList<Character> newEvents = new ArrayList<>();
+			for(int i = 0; i < 5; i++){
+				newEvents.add(events.get(events.size() - i - 1));
+			}
+			events = newEvents;
+		}
+	}
+	
 }

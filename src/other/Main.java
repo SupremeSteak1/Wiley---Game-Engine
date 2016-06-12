@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import engine.backend.GameObjectHandler;
 import engine.backend.Renderer;
 import engine.frontend.Renderable;
+import engine.input.Keyboard;
 import engine.physics.PhysicsController;
 import game.ControllableEntity;
 import game.Level;
@@ -25,9 +26,11 @@ public class Main {
 		player.setSpeed(2);
 		player.setProjectileSpeed(5);
 		goh.registerGameObject(player);
+		goh.registerGameObject(l);
 		pc.registerRigidBody(player);
 		while(true){
 			pc.update();
+			Keyboard.update();
 			r.setQueue(new ArrayList<Renderable>());
 			goh.updateGameObjects();
 			goh.renderGameObjects(r);

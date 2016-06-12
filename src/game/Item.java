@@ -28,18 +28,29 @@ public class Item{
 		NOT_SET,
 		WEAPON,
 		//Weapon attributes:
-		/*
-		 * 
+		/* File path
+		 * Attack damage
+		 * Attack speed
+		 * Durability ?
+		 * EffectID ?
+		 * Description ?
+		 * Weight
 		 */
 		EQUIPMENT,
 		//Equipment attributes:
-		/*
-		 * 
+		/* File path
+		 * Defense
+		 * Weight
+		 * EffectID ?
+		 * EquipmentSlot
+		 * Description
 		 */
 		CONSUMABLE
 		//Consumable attributes:
-		/*
-		 * 
+		/* File path
+		 * EffectID ?
+		 * Description
+		 * Weight
 		 */
 	}
 	

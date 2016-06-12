@@ -87,7 +87,7 @@ public class Projectile extends RigidBody {
 	 * The act method inherited from RigidBody
 	 */
 	@Override
-	public void act() {
+	public void move() {
 		if(super.getCollisionBox().getCollisionInProgress()){
 			inMotion = false;
 		}
@@ -99,6 +99,7 @@ public class Projectile extends RigidBody {
 		if(this.getCollisionBox().getRecentCollisionType().equals(this.getClass())){
 			//this.destruct();
 		}
+		//super.setPosition(Utilities.addVectors(super.getPosition(), super.getVelocity()));
 	}
 
 }

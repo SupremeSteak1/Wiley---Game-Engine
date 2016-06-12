@@ -87,4 +87,10 @@ public class Utilities {
 	public static Vector subtractVectors(Vector v1, Vector v2){
 		return new Vector(v1.getxComp() - v2.getxComp(), v1.getyComp() - v2.getyComp());
 	}
+	
+	public static Vector polarToCartesian(double angle, double magnitude){
+		double x = magnitude * Math.cos(angle);
+		double y = magnitude * Math.sin(angle);
+		return new Vector(x,y);
+	}
 }

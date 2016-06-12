@@ -33,12 +33,20 @@ public class CollisionBox {
 	}
 	
 	public boolean isColliding(CollisionBox other){
-		for(Line2D.Double l : Level.getBounds()){
-			System.out.println("On bounds!");
-			if(box.intersectsLine(l)) return true;
-		}
 		collisionInProgress = this.box.intersects(other.getCollisionBox());
 		return collisionInProgress;
+	}
+	
+	public boolean isOnBoundary(){
+		Line2D.Double line;
+		for(int i = 0; i < 4; i++){
+			line = Level.getBounds()[i];
+			if(box.intersectsLine(line)) collideWithWall(i);
+		}
+		for(Line2D.Double l : Level.getBounds()){
+			if(box.intersectsLine(l)) return true;
+		}
+		return false;
 	}
 	
 	public RigidBody getRB(){
@@ -61,6 +69,31 @@ public class CollisionBox {
 		rb.setVelocity(fuck);
 		collisionInProgress = false;
 		recentCollisionType = other.getRB().getClass();
+	}
+	
+	public void collideWithWall(int wall){
+		assert(wall > 0 && wall < 5);
+		//1 = -----
+		//2 = 	  |
+		//3 = _____
+		//4 = |
+		double angle = 0;
+		switch(wall){
+		case 1:
+			angle = Utilities.getAngleBetweenVectors(rb.getVelocity(), new Vector(1,0));
+			break;
+		case 2:
+			angle = Utilities.getAngleBetweenVectors(rb.getVelocity(), new Vector(0,-1));
+			break;
+		case 3:
+			angle = Utilities.getAngleBetweenVectors(rb.getVelocity(), new Vector(1,0));
+			break;
+		case 4:
+			angle = Utilities.getAngleBetweenVectors(rb.getVelocity(), new Vector(0,-1));
+			break;
+		}
+		double newAngle = Math.PI - angle;
+		rb.setVelocity(Utilities.polarToCartesian(newAngle, rb.getVelocity().getMagnitude()));
 	}
 	
 	public boolean getCollisionInProgress(){
