@@ -13,12 +13,16 @@ public class CollisionBox {
 	private Rectangle box;
 	private RigidBody rb;
 	
+	private int x, y;
+	
 	@SuppressWarnings("rawtypes")
 	private Class recentCollisionType;
 	
 	private boolean collisionInProgress;
 	
 	public CollisionBox(int x, int y, RigidBody rb){
+		this.x = x;
+		this.y = y;
 		collisionInProgress = false;
 		this.rb = rb;
 		this.box = new Rectangle((int)Math.round(rb.getPosition().getxComp()- x/2),(
@@ -98,6 +102,13 @@ public class CollisionBox {
 	
 	public boolean getCollisionInProgress(){
 		return collisionInProgress;
+	}
+	
+	public void refresh(){
+		this.box = new Rectangle((int)Math.round(rb.getPosition().getxComp()- x/2),(
+				int)Math.round(rb.getPosition().getyComp()- y/2), 
+				(int)Math.round(rb.getPosition().getxComp()+ x/2), 
+				(int)Math.round(rb.getPosition().getyComp()- y/2));
 	}
 
 }

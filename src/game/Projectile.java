@@ -35,7 +35,7 @@ public class Projectile extends RigidBody {
 		filePath = "res/emptyTexture.png";
 		timeOut = 2000;
 		timeWhenFired = Long.MAX_VALUE;
-		placeFired = new Point(0,0);
+		//placeFired = new Point(0,0);
 		range = 2000.0;
 	}
 	

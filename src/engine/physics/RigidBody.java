@@ -6,7 +6,7 @@ import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 import other.Utilities;
 
-public abstract class RigidBody extends Entity {
+public class RigidBody extends Entity {
 
 	private int mass;
 	private Vector acceleration;
@@ -83,14 +83,14 @@ public abstract class RigidBody extends Entity {
 	@Override
 	public void act() {
 		move();
-		//TODO: Fix below line
+		box.refresh();
 		//acceleration = Utilities.addVectors(acceleration, acceleration.getOppositeVector().normalize().scalarMultiply(frictionCoefficient *(mass * Utilities.g)));
 		//The above line simulates friction by reducing the acceleration's magnitude an amount equal 
 		//to the coefficient of friction multiplied by the mass and the acceleration due to gravity.
 		super.setVelocity(Utilities.addVectors(super.getVelocity(), acceleration));
 		//The above line simulates acceleration by incrementing the velocity vector by the acceleration vector
 		super.setPosition(Utilities.addVectors(super.getPosition(), super.getVelocity()));
-		box.isOnBoundary();
+		//box.isOnBoundary();
 	}
 	
 	/**
